@@ -1,0 +1,105 @@
+﻿@model ProductFormViewModel
+
+
+<div class="row">
+
+    <div class="col-8 offset-2">
+
+        <div class="card" style="border: solid 2px">
+
+            <div class="card-header fw-bold fs-5">
+                @if (Model.Id == 0)
+                {
+                    <span>Ürün Ekleme Formu</span>
+                }
+                else
+                {
+                    <span>Ürün Güncelleme Formu</span>
+                }
+            </div>
+
+            <div class="card-body">
+
+                <form method="post" asp-controller="Product" asp-action="Save" enctype="multipart/form-data">
+                    @*   DOSYA TAŞIYORSAN , ENCTYPE EKLEMELISIN ! - File kısmını formdan ayrı bir part olarak görmesini istiyorsun. *@
+
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+                    {
+                        <div class="alert alert-danger fw-bold">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+
+                    <input asp-for="Id" />
+                    @*Id kontrol için. TODO: Gizlenecek*@
+
+                    <div class="mb-2">
+                        <label asp-for="Name"></label>
+                        <input type="text" asp-for="Name" class="form-control" />
+                        <span class="text-danger fw-bold mt-1" asp-validation-for="Name"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label asp-for="Description"></label>
+                        <input type="text" asp-for="Description" class="form-control" />
+                        <span class="text-danger fw-bold mt-1" asp-validation-for="Description"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label asp-for="UnitPrice"></label>
+                        <input type="text" asp-for="UnitPrice" class="form-control" />
+                        <span class="text-danger fw-bold mt-1" asp-validation-for="UnitPrice"></span>
+                    </div>
+
+                    
+                    <div class="mb-2">
+                        <label asp-for="UnitsInStock"></label>
+                        <input type="number" asp-for="UnitsInStock" class="form-control" />
+                        <span class="text-danger fw-bold mt-1" asp-validation-for="UnitsInStock"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label asp-for="CategoryId"></label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories,"Id" ,"Name"))"></select>
+                        <span class="text-danger fw-bold mt-1" asp-validation-for="CategoryId"></span>
+                    </div>
+
+                    <div class="mb-2">
+
+
+                        <label asp-for="File"></label>
+                        <input type="File" asp-for="File" class="form-control" />
+                        <span class="text-danger fw-bold mt-1" asp-validation-for="File"></span>
+
+
+                        @if (!string.IsNullOrWhiteSpace(ViewBag.ImagePath))
+
+                        {
+                            <img class="mt-4" width="200" height="150" src="~/images/products/@ViewBag.ImagePath" />
+
+                           
+                        }
+
+
+                        @if (!string.IsNullOrWhiteSpace(ViewBag.ImageErrorMessage))
+                        {
+                            <div class="alert alert-warning fw-bold mt-2">
+                                @ViewBag.ImageErrorMessage
+                            </div>
+                        }
+
+                    </div>
+
+
+                    <button type="submit" class="btn btn-success mt-3 float-end fw-bold">@(Model.Id == 0 ? "Ürün Ekle" : "Ürün Güncelle")</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>

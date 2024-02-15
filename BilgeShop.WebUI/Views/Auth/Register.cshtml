@@ -1,0 +1,89 @@
+﻿@model RegisterViewModel
+
+
+<div class="login-box" style="top:33%; margin-top:80px; width:34%">
+    <h2 style="font-family:'Lucida Fax'">Kayıt Formu</h2>
+    <form method="post" asp-controller="Auth" asp-action="Register">
+        <div class="d-flex">
+            <div class="user-box me-4">
+                <input asp-for=FirstName type="text" required>
+                <label class="required" asp-for="FirstName"></label>
+            </div>
+            <div class="user-box">
+                <input asp-for="LastName" type="text" required>
+                <label class="required" asp-for="LastName"></label>
+            </div>
+        </div>
+        <div class="user-box">
+            <input asp-for="Email" type="email" required>
+            <label class="required" asp-for="Email"></label>
+        </div>
+        <div class="d-flex">
+            <div class="user-box me-4">
+                <input asp-for="Password" type="password" required>
+                <label class="required" asp-for="Password"></label>
+            </div>
+
+            <div class="user-box ">
+                <input asp-for="PasswordConfirm" type="password" required>
+                <label class="required" asp-for="PasswordConfirm"></label>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="text-danger" asp-validation-summary="All">
+        </div>
+
+
+        <button style="font-family:'Lucida Fax'" type="submit" class="float-end">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Kayıt Ol
+        </button>
+
+    </form>
+</div>
+@*Section ile renderbody'i parçalıyorum denilebilir.*@
+
+@section Scripts {
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            toastr.options = {
+                'closeButton': false,
+                'debug': false,
+                'newestOnTop': true,
+                'progressBar': false,
+                'positionClass': 'toast-top-center',
+                'preventDuplicates': false,
+                'showDuration': '1000',
+                'hideDuration': '1000',
+                'timeOut': '5000',
+                'extendedTimeOut': '1000',
+                'showEasing': 'swing',
+                'hideEasing': 'linear',
+                'showMethod': 'fadeIn',
+                'hideMethod': 'fadeOut',
+            }
+
+        @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage?.ToString()))
+        {
+            @:toastr.options.closeHtml = '<button class="closebtn"><i class="bi bi-x"></i></button>';
+            @:toastr.error("@ViewBag.ErrorMessage?.ToString()", "Bildirim:");
+        }
+
+
+                        });
+
+
+    </script>
+
+}

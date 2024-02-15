@@ -1,0 +1,14 @@
+﻿@model LoginViewModel
+
+<form method="post" asp-controller="Auth" asp-action="Login" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 fw-bold">
+
+    <div class="d-flex">
+        <input asp-for="Email" type="text" class="form-control form-control-dark text-bg-dark" placeholder="Email..." />
+        <input asp-for="Password" type="password" class="form-control form-control-dark text-bg-dark" placeholder="Password..." />
+
+        <button type="submit" class="btn btn-warning ms-2 fw-bold">Giriş</button>
+        <button id="btnIptal" type="button" class="btn btn-outline-warning ms-2 fw-bold">İptal</button>
+
+    </div>
+
+</form>

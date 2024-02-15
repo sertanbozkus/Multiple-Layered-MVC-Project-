@@ -1,0 +1,139 @@
+﻿@model List<ProductListViewModel>
+
+<audio id="myAudio" style="display:none" controls="controls">
+    <source src="~/sounds/success.mp3" type="audio/mpeg" />
+</audio>
+
+<div>
+    <div class="float-start"> <h2>Ürünler</h2> </div>
+    <div class="float-end"> <a asp-controller="Product" asp-action="New" class="btn btn-warning fw-bold">Yeni Ürün</a></div>
+</div>
+
+<div style="padding-top:75px">
+
+    <table id="productTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th style="width:150px"></th>
+                <th>Ürün Adı</th>
+                <th>Birim Fiyatı</th>
+                <th>Stok Miktarı</th>
+                <th>Kategori</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+
+                        @if(string.IsNullOrWhiteSpace(item.ImagePath))
+                        {
+                            <a href="~/images/noImage.png" data-lightbox="@item.CategoryName" data-title="@item.Name"><img width="140" height="120" src="~/images/noImage.png" /></a>
+                        }
+                        else
+                        {
+                            <a href="~/images/products/@item.ImagePath" data-lightbox=" @item.CategoryName" data-title="@item.Name"><img width="140" height="120" src="~/images/products/@item.ImagePath" /></a>
+                        }
+                    </td>
+
+                    <td>@item.Name</td>
+                    <td>@item.UnitPrice TL</td>
+                    <td>@item.UnitsInStock</td>
+                    <td>@item.CategoryName</td>
+
+                    <td>
+                        <a asp-controller="Product" asp-action="Update" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Düzenle</a>
+                        <a href="#" class="btn btn-sm btn-danger btnDelete" data-id="@item.Id">Sil</a>
+                        @* Ajax.js ile istek atacaksam taghelper kullanmıyorum.*@
+                    </td>
+
+                </tr>
+                
+            }
+
+
+        </tbody>
+
+
+    </table>
+
+
+
+
+</div>
+
+
+@section Scripts{
+    
+    <script>
+
+        
+
+        var table = new DataTable('#productTable', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/tr.json',
+            },
+            pageLength:3
+        });
+
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            'fitImagesInViewport': true,
+            'maxWidth' :500,
+            'maxHeight': 500
+        })
+
+
+        $('.btnDelete').click(function (e) {
+        
+            e.preventDefault(); // Linkin yönlendirme işlemini engelliyorum. (url'e # atmıyor, böylelikle sayfa yukarı kaymıyor.)
+
+
+            let productId = $(this).data('id'); // Butonun içerisine data-id ile gömülen bilgiyi değişkene atadım.
+
+          
+
+            Swal.fire({
+                title: "Emin misiniz?",
+                text: "Dikkat! Bu işlemi geriye alamazsınız!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Evet, Sil!",
+                cancelButtonText: "İptal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/product/delete/' +productId,
+                        method: 'GET' // url üzerinden istek
+                    }).done(function () {
+                        Swal.fire({
+                            title: "Silindi!",
+                            text: "Ürün başarıyla silindi.",
+                            icon: "success"
+                        }).then(() => {window.location.reload() })
+                    }).fail(function () {
+                        Swal.fire({
+                            title: "Hata!",
+                            text: "Ürün silinirken bir hata ile karşılaşıldı.",
+                            icon: "error"
+                        });
+                    })
+                }
+            });
+        
+        })
+
+
+    </script>
+
+
+
+
+}

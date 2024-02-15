@@ -1,0 +1,12 @@
+﻿@model List<CategoryViewModel>
+
+    <div class="list-group list-group-flush rounded mt-4">
+
+        <a asp-controller="" asp-action="" asp-route-categoryId="" asp-route-categoryName="" class="fw-bold list-group-item">Tüm Ürünler</a>
+
+        @foreach (var category in Model)
+    {
+        <a asp-controller="" asp-action="" asp-route-categoryId="@category.Id" asp-route-categoryName="@category.Name" class="list-group-item list-group-item-action">@category.Name</a>
+    }
+
+    </div>

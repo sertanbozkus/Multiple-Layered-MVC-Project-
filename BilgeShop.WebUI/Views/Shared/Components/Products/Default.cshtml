@@ -1,0 +1,61 @@
+﻿
+@model List<ProductListViewModel>
+
+
+<div class="row ms-3">
+
+    @if (Model.Any()) // Model.Count != 0
+    {
+         <main class="main bd-grid">
+      @foreach (var product in Model)
+        {
+
+                <article class="card">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                    <div class="card__img">
+                        <img src="~/images/products/@product.ImagePath" alt="">
+                    </div>
+                    <div class="card__name">
+                        <p>@product.Name</p>
+                    </div>  
+                    <div class="card__precis">
+                        <a href="" class="card__icon"><ion-icon name="heart-outline"></ion-icon></a>
+
+                        <div>
+                            <span class="card__preci card__preci--before">
+                                @if(product.UnitsInStock == 0)
+                                {
+                                    <span>Ürün Tükendi.</Span>
+                                }
+                                else if(product.UnitsInStock <= 3)
+                                {
+                                    <span>Son ürünler.</span>
+                                }
+                            </span>
+                            <span class="card__preci card__preci--now">@product.UnitPrice TL</span>
+                        </div>
+                        <div  class="card__icon"><ion-icon name="cart-outline"></ion-icon></div>
+                    </div>
+                    </a>
+                </article>  
+       
+
+        }
+        </main>
+    }
+    else
+    {
+        <div class="alert alert-info mt-4 fw-bold">
+            <span>İlgili kategoride ürün bulunmamaktadır.</span>
+            </div>
+    }
+
+
+
+
+
+
+
+
+
+</div>

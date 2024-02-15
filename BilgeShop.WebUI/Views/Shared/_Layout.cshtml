@@ -1,0 +1,337 @@
+﻿
+<html>
+<head>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="~/css/cards.css" rel="stylesheet" />
+
+   
+
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(#141e30, #2a6c56,#141e30)
+        }
+
+        .login-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            padding: 40px;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+
+            .login-box h2 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: #fff;
+                text-align: center;
+            }
+
+            .login-box .user-box {
+                position: relative;
+            }
+
+                .login-box .user-box input {
+                    width: 100%;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: #fff;
+                    margin-bottom: 30px;
+                    outline: none;
+                    background: transparent;
+                    border: none;
+                    border-bottom: 1px solid #fff;
+                    transition: all 0.3s ease;
+                }
+
+                .login-box .user-box label {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: #fff;
+                    pointer-events: none;
+                    transition: all 0.3s ease;
+                }
+
+                .login-box .user-box input:focus ~ label,
+                .login-box .user-box input:valid ~ label {
+                    top: -20px;
+                    left: 0;
+                    color: #03f484;
+                    font-size: 12px;
+                }
+
+            .login-box form a {
+                position: relative;
+                display: inline-block;
+                padding: 10px 20px;
+                color: #03f484;
+                font-size: 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                margin-top: 40px;
+                letter-spacing: 4px;
+                transition: all 0.3s ease;
+            }
+
+            .login-box a:hover {
+                background: #03f484;
+                color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #03f484, 0 0 25px #03f484, 0 0 50px #03f484, 0 0 100px #03f484;
+            }
+
+            .login-box a span {
+                position: absolute;
+                display: block;
+            }
+
+            .login-box a:hover span:nth-child(1) {
+                left: 100%;
+                transition: none;
+            }
+
+            .login-box a:hover span:nth-child(2) {
+                top: 100%;
+                transition: none;
+            }
+
+            .login-box a:hover span:nth-child(3) {
+                right: 100%;
+                transition: none;
+            }
+
+            .login-box a:hover span:nth-child(4) {
+                bottom: 100%;
+                transition: none;
+            }
+
+            .login-box form button {
+                position: relative;
+                display: inline-block;
+                padding: 10px 20px;
+                color: #03f484;
+                font-size: 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                margin-top: 40px;
+                letter-spacing: 4px;
+                transition: all 0.3s ease;
+                background-color: transparent;
+                border: 2px solid #03f484;
+            }
+
+            .login-box button:hover {
+                background: #03f484;
+                color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #03f484, 0 0 25px #03f484, 0 0 50px #03f484, 0 0 100px #03f484;
+            }
+
+        label.required:after {
+            content: "*\00a0";
+            color: red;
+            margin-left: 2px
+        }
+
+        .toast-success, .toast-info, .toast-warning, .toast-error {
+            width: 400px !important;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            border-radius: 1rem !important;
+            background-color: #edf1fd;
+            color: #01081e !important;
+            border-color: transparent !important;
+        }
+
+        #toast-container > .toast-success {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKLSURBVHgBzZZNbtpAFMffjMFRQY28hFKpzg1gGZFKWGkqdZX2BHVOUHIC4AQ0J6g5QZVVpDTUqC10V3GDelGqSF3UG1cqgZm+GYIVbPAHoCp/CWY89sxP78289wbgP4tAShW+XugwyeiiP6Xc/VV9PkwzPxao2e+1fHbXBEqOgfEyztDCq5AecN4ZVQ+tuPUigY8H9hvOWHMpZLkc/LWiwEuBwqqcqrUJMBPWk+WN6alrGG4sULpQfWjjqzJsJDL0xsQIQmnws7y6294cJsTLeZW1g6MLwFK/a2JjwvZkFgfd+kogqgFbFuXQ0GxbCwFvrdNhHXHew3+Lz05pUNqD7MQMAYGT17AebTg6eGZMx+PWqhijVDme9zP+KOE1SItCixhVXom+oqp4sld4iHP/EEoLS/3LcsSqrnQVtsFXaFHret9wHvXtBkRvh1b81n3iA6eMrM4kBNw/Y1qZKrSyuEf8TGSUwucPNUwQTYiR4rE9HxgjPb/DGsISytiJRCHYyynNgn2hK5S+gxSaATMZJ/IrDvXip6uXP54e9QjjZ4xSw60YLu5bnCt9/cXKIlr/YGFY/MYmKkm7eBIr18YLRzzIxM7ZW0godL9k3Q2LuLqmKTs70n3ClbKKJBWRcQqLQJiex07kvFYafLRlCCQvWcKYjs+ed3RMPzcq+w6QYqEkLDxgP6uHe/Nn30JHlBEOLdiyRKwGnhdV+nJl4ZVhzTQXkoWH5eTuQCgOszdKXRRP2Fh86OXoaXA0BBSuzWKlFpciWJvFO5gYZKwGX0VeokTJwk1vkKRlS+Zb1hodHK2Mz0T3UlkrRflaVlEkhOMWkHMvT61lVqUGLsIvy+Q22WcyE8fZn2Wee6t/lXrvcWjggekAAAAASUVORK5CYII=') !important;
+        }
+
+        #toast-container > .toast-error {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIlSURBVHgB3VbBbtNAEH2zTugFFIPgwAlzA4mK8AdrvgC+APiSKl/S9AvoH8SfEEQP3PCNAwjcA6IQeYcdYxtvbK/jNr30SVG86519npk3swvcdNCuC7880dF0Ck1QzxVMKHMGKmOYD5sNkoefknSXfQYJvz7TekJ0xIAe2CjJwSf3PybLgXXd+BzpcHZHHQP8CiPAoOWfjVn0edxJKOE7mNLKPka4HNLfG467SOkayGpSCvjF3XWSNSfV9qpbU3W0BzJBxLmkxIXj4bdD/VaBjrFH5Mzxg7MkqcaOhwHwBuOR+V4GVuHNcU0oubMK032GNh+P5Wdjsq4nGet6vh/619OXj1qEUtQeI/EiswJISXFckArZhGMRxcUFvPhJJm4REmPusQnZ0OrHXIdCIKQVmdTrwYTee2xBStV7T/7PIvQZWY/mJWlcSb1oDrdtCZH3Y6HIzOpnjIFxh2E4eofGcvarrZkz8awZXkdIXd/J6rxFyH6jzJK9rsgkjNs5hac8mMy6RRgESDyEECU6OStzKuVk30lwezXQ3NvpNN8Pte2h/bVYeuEX1zYYyb2zVbssBDljMWA+jszCEJ80xw7hv57Hp9gTCLzcPpBboqYA7+xfiqsjtc25FbEWYaG6oFBdiiuQyR7SCgcJS9LCgOHGfxfYMJ6WB2/a/X4AxRnJ9tgir3oLNdpL1KJ59l2KsIIt8ijP7TWRixqcldbn0jDGXBNvPv4C3QjuTqveJGAAAAAASUVORK5CYII=') !important;
+        }
+
+
+        .closebtn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #ccd7fc !important;
+        }
+
+            .closebtn > i {
+                color: #000617;
+                font-weight: 500;
+            }
+
+
+        #AdminPanelLink {
+            position: relative;
+            display: inline-block;
+            color: #03f484;
+            font-size: 14px;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            letter-spacing: 4px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: 2px solid #03f484;
+        }
+
+            #AdminPanelLink:hover {
+                background: #03f484;
+                color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #03f484, 0 0 25px #03f484, 0 0 50px #03f484, 0 0 100px #03f484;
+            }
+    </style>
+
+
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none fw-bold">
+                    BilgeShop
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                </ul>
+
+                <div id="login" class="d-none">
+                    @*display:none*@
+                    <partial name="_LoginPartial" model="new LoginViewModel()" />
+                    @* Eğer Partial view bir model alıyorsa mutlaka boş bir modelle açılmalı. Aksi taktirde RenderBody'e gönderilen modeller buraya gönderilmiş gibi düşünülüp eşleşmeme hatası alınabilir.*@
+
+                </div>
+
+                @if (!User.IsLogged())
+                {
+                    <div id="welcome">
+                        <partial name="_WelcomePartial" />
+                    </div>
+                }
+                else
+                {
+                    var firstName = User.GetUserFirstName();
+                    var lastName = User.GetUserLastName();
+
+                    <div class="d-flex">
+
+                        @if (User.IsAdmin())
+                        {
+                            <div class="ms-3 me-3">
+                                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="btn" id="AdminPanelLink">Yönetim Paneli</a>
+                            </div>
+                        }
+
+                        <div class="fw-bold fst-italic mt-2">
+                            Hoş Geldin @firstName @lastName
+                        </div>
+
+
+                        <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-warning ms-3 fw-bold">Çıkış Yap</a>
+
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        @RenderBody()
+
+    </div>
+
+
+    <footer class="bg-dark text-white text-center fw-bold py-3 mt-auto">
+
+        YZL 8748 | BilgeShop
+        <hr />
+        <p class="text-secondary">Tüm hakları Sertan Bozkuş'a aittir.</p>
+
+    </footer>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+
+        $('#btnGirisYap').click(function () {
+            $('#login').removeClass('d-none');
+            $('#welcome').addClass('d-none');
+
+        })
+
+        $('#btnIptal').click(function () {
+            $('#login').addClass('d-none');
+            $('#welcome').removeClass('d-none');
+        })
+
+        $(document).ready(function () {
+
+            toastr.options = {
+                'closeButton': false,
+                'debug': false,
+                'newestOnTop': true,
+                'progressBar': false,
+                'positionClass': 'toast-top-center',
+                'preventDuplicates': false,
+                'showDuration': '1000',
+                'hideDuration': '1000',
+                'timeOut': '5000',
+                'extendedTimeOut': '1000',
+                'showEasing': 'swing',
+                'hideEasing': 'linear',
+                'showMethod': 'fadeIn',
+                'hideMethod': 'fadeOut',
+            }
+
+        @if (!string.IsNullOrWhiteSpace(TempData["SuccessMessage"]?.ToString()))
+        {
+            @:toastr.options.closeHtml = '<button class="closebtn"><i class="bi bi-x"></i></button>';
+            @:toastr.success("@TempData["SuccessMessage"]?.ToString()", "Bildirim:");
+        }
+
+
+                                        });
+
+
+
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+</body>
+</html>

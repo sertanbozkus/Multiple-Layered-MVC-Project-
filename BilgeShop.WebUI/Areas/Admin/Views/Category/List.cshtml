@@ -1,0 +1,59 @@
+﻿@model List<CategoryListViewModel>
+
+<div>
+    <div class="float-start">  <h2>Kategoriler</h2>    </div>
+    <div class="float-end">
+        <a asp-controller="Category" asp-action="New" class="btn btn-warning fw-bold">Yeni Kategori</a>
+    </div>
+</div>
+
+
+<div style="padding-top: 75px">
+
+    <table class="table table-hover">
+
+        <thead class="table-secondary">
+            <tr>
+                <th>Kategori Adı</th>
+                <th>Açıklaması</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a asp-controller="Category" asp-action="Update" asp-route-id="@item.Id" class="btn btn-sm btn-primary fw-bold">Düzenle</a>
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger fw-bold">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+
+
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        if (@(string.IsNullOrWhiteSpace(TempData["CategoryErrorMessage"]?.ToString()) ? "false" : "true")) {
+            Swal.fire({
+                icon: "error",
+                title: "Hata!",
+                text: @Html.Raw(Json.Serialize(TempData["CategoryErrorMessage"]))
+            });
+        }
+    </script>
+
+
+
+}

@@ -1,0 +1,44 @@
+
+
+Arkadaþlar selam. Buraya bakýyor musunuz bilmiyorum ama eðer bakýyorsanýz þunu asla unutmayýn.
+
+
+-----> CONTROLLER SERVÝS METOTLARINI KULLANIR.
+
+
+-----> SERVÝS METOTLARI REPOSITORY METOTLARINI KULLANIR.
+
+
+-----> REPOSITORY DBCONTEXT METOTLARINI KULLANILIR.
+
+---- Sevgiler -----
+
+
+Sertan
+29.01.2024 - 14. 31
+
+
+An itibariyle dolar -> 30.35TL
+... hala iktidar.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// EK NOT -> 
+
+Projede kullandýðýnýz Generic Repository - Service/Manager yapýlarý gelen parametreler üzerinden þekillendiði için baþka projelere de çok rahat adapte olabilir.
+
+An itibariyle dolar -> 30.37TL
+.... Hala iktidar.
