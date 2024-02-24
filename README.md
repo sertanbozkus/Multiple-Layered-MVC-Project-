@@ -6,7 +6,7 @@ MVC Projesi
 
 ## BilgeShopSitesi
 
-MVC Projesi örneği
+Asp.Net 8 ile geliştirilmiş - MVC Projesi örneği
 
 
 ### Kullanılan Teknolojiler
